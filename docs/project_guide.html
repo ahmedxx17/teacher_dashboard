@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teaching Dashboard - Complete Beginner's Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .sidebar h1 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+        }
+
+        .sidebar nav li {
+            margin-bottom: 8px;
+        }
+
+        .sidebar nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .sidebar nav a:hover {
+            background: #34495e;
+            padding-left: 16px;
+        }
+
+        .sidebar nav a.active {
+            background: #3498db;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px 60px;
+            background: white;
+            max-width: 1200px;
+        }
+
+        .main-content h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+
+        .main-content h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+        }
+
+        .main-content h3 {
+            color: #34495e;
+            font-size: 1.4rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .main-content h4 {
+            color: #555;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .main-content p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .main-content ul, .main-content ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        .main-content li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        /* Code blocks */
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        code {
+            background: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #e74c3c;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: #ecf0f1;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Alerts/Callouts */
+        .alert {
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+            border-left: 4px solid;
+        }
+
+        .alert-critical {
+            background: #fee;
+            border-color: #e74c3c;
+        }
+
+        .alert-high {
+            background: #fff3cd;
+            border-color: #f39c12;
+        }
+
+        .alert-medium {
+            background: #fff9e6;
+            border-color: #f1c40f;
+        }
+
+        .alert-info {
+            background: #e8f4f8;
+            border-color: #3498db;
+        }
+
+        /* Collapsible sections */
+        details {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: #3498db;
+            padding: 5px;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: #2980b9;
+        }
+
+        details[open] summary {
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        /* Blockquotes */
+        blockquote {
+            border-left: 4px solid #3498db;
+            padding-left: 20px;
+            margin: 20px 0;
+            color: #555;
+            font-style: italic;
+        }
+
+        /* Links */
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .badge-critical { background: #e74c3c; color: white; }
+        .badge-high { background: #f39c12; color: white; }
+        .badge-medium { background: #f1c40f; color: #333; }
+        .badge-low { background: #95a5a6; color: white; }
+
+        /* Mermaid diagrams */
+        .mermaid {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Print styles */
+        @media print {
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+                max-width: 100%;
+            }
+        }
+
+        /* Scrollbar styling */
+        .sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: #34495e;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #3498db;
+            border-radius: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <h1>📚 Quick Navigation</h1>
+            <nav>
+                <ul>
+                    <li><a href="#section-1">1. The Big Picture</a></li>
+                    <li><a href="#section-2">2. The Two Pipelines</a></li>
+                    <li><a href="#section-3">3. Every Technology</a></li>
+                    <li><a href="#section-4">4. How APIs Work</a></li>
+                    <li><a href="#section-5">5. The Database</a></li>
+                    <li><a href="#section-6">6. Security & Risks</a></li>
+                    <li><a href="#section-7">7. Design Decisions</a></li>
+                    <li><a href="#section-8">8. Known Weaknesses</a></li>
+                    <li><a href="#section-9">9. File-by-File Map</a></li>
+                    <li><a href="#section-10">10. Glossary</a></li>
+                    <li><a href="#section-11">11. How to Explain</a></li>
+                    <li><a href="#section-12">12. Learning Path</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <h1>Teaching Dashboard - Complete Beginner's Guide</h1>
+            <p><strong>A comprehensive, beginner-friendly explanation of your Class 9 & 10 Teaching Dashboard project</strong></p>
+            <p><em>Created: October 12, 2024 | For: 2nd-year Software Engineering Students</em></p>
+
+            <div class="alert alert-info">
+                <strong>📖 How to Use This Guide:</strong> This is a 6,600+ line deep-dive covering every aspect of your project. Read sections in order for full understanding, or jump to specific topics using the sidebar. All code examples are from YOUR actual codebase.
+            </div>
+
+            <hr style="margin: 40px 0; border: none; border-top: 2px solid #ecf0f1;">
+
+            <!-- Rest of content will be loaded from markdown -->
+            <div id="content">
+                <p><em>Loading guide content... If you see this message, the JavaScript failed to load the markdown content.</em></p>
+                <p><strong>Manual viewing:</strong> Open <code>docs/PROJECT_GUIDE.md</code> in any markdown viewer or text editor.</p>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Mermaid for diagrams -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+
+    <!-- Marked.js for markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@11/marked.min.js"></script>
+
+    <script>
+        // Fetch and render markdown content
+        fetch('PROJECT_GUIDE.md')
+            .then(response => response.text())
+            .then(markdown => {
+                // Configure marked
+                marked.setOptions({
+                    breaks: true,
+                    gfm: true,
+                    headerIds: true,
+                    mangle: false
+                });
+
+                // Convert markdown to HTML
+                const html = marked.parse(markdown);
+
+                // Insert into content div
+                document.getElementById('content').innerHTML = html;
+
+                // Re-render mermaid diagrams
+                mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+
+                // Add IDs to sections for navigation
+                const headers = document.querySelectorAll('h2');
+                headers.forEach((header, index) => {
+                    header.id = `section-${index + 1}`;
+                });
+
+                // Highlight active section in sidebar
+                const navLinks = document.querySelectorAll('.sidebar nav a');
+                const observerOptions = {
+                    rootMargin: '-100px 0px -66%',
+                    threshold: 0
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.id;
+                            navLinks.forEach(link => {
+                                link.classList.remove('active');
+                                if (link.getAttribute('href') === `#${id}`) {
+                                    link.classList.add('active');
+                                }
+                            });
+                        }
+                    });
+                }, observerOptions);
+
+                headers.forEach(header => observer.observe(header));
+
+                // Smooth scroll
+                navLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = link.getAttribute('href').substring(1);
+                        const target = document.getElementById(targetId);
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    });
+                });
+
+                // Add copy buttons to code blocks
+                document.querySelectorAll('pre code').forEach(block => {
+                    const button = document.createElement('button');
+                    button.textContent = 'Copy';
+                    button.style.cssText = 'position:absolute; top:10px; right:10px; padding:5px 10px; background:#3498db; color:white; border:none; border-radius:4px; cursor:pointer; font-size:0.8rem;';
+
+                    const pre = block.parentElement;
+                    pre.style.position = 'relative';
+                    pre.appendChild(button);
+
+                    button.addEventListener('click', () => {
+                        navigator.clipboard.writeText(block.textContent);
+                        button.textContent = 'Copied!';
+                        setTimeout(() => button.textContent = 'Copy', 2000);
+                    });
+                });
+            })
+            .catch(error => {
+                console.error('Error loading markdown:', error);
+                document.getElementById('content').innerHTML = `
+                    <div class="alert alert-critical">
+                        <strong>❌ Error Loading Guide</strong>
+                        <p>Could not load PROJECT_GUIDE.md. Make sure this HTML file is in the same directory as PROJECT_GUIDE.md.</p>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            });
+    </script>
+</body>
+</html>
